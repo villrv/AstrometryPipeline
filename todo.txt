@@ -1,0 +1,4 @@
+1. Check that RMS reported is actually legit
+2. Get centroid of transients in trans image 
+3. get centroid of host in host image + host (half light?) radius
+4. calc offset + uncertainty (astrometric + trans centroid + host centroid)
