@@ -1,5 +1,6 @@
 import alipy
 import glob
+import numpy as np
 
 images_to_align = sorted(glob.glob("trans.fits"))
 ref_image = "ref.fits"
@@ -26,7 +27,6 @@ for id in identifications: # list of the same length as images_to_align.
 # Minimal example of how to align images :
 
 outputshape = alipy.align.shape(ref_image)
-# This is simply a tuple (width, height)... you could specify any other shape.
 
 for id in identifications:
         if id.ok == True:
@@ -40,4 +40,14 @@ for id in identifications:
 
                 # By default, the aligned images are written into a directory "alipy_out".
 
-# To be continued ...
+
+print "FINISHED ORIGINAL IDs"
+
+#Print the calculated RMS values from alignment...
+
+
+aligned_image = "./alipy_out/trans_gregister.fits"
+
+identifications = alipy.ident.run(ref_image, [aligned_image], visu=False)
+
+print identifications[0].refmatchstars[0].x
