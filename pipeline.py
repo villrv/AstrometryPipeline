@@ -1,7 +1,7 @@
 import alipy
 import glob
 import numpy as np
-
+from photutils.morphology import centroid_com
 images_to_align = sorted(glob.glob("trans.fits"))
 ref_image = "ref.fits"
 
@@ -44,10 +44,27 @@ for id in identifications:
 print "FINISHED ORIGINAL IDs"
 
 #Print the calculated RMS values from alignment...
-
-
 aligned_image = "./alipy_out/trans_gregister.fits"
 
 identifications = alipy.ident.run(ref_image, [aligned_image], visu=False)
 
-print identifications[0].refmatchstars[0].x
+rms_x = 0
+rms_y = 0
+counter = 0
+for id in identifications:
+    if id.ok == True:
+        for i,ref_star in enumerate(id.refmatchstars):
+            ukn_star = id.uknmatchstars[i]
+
+            rms_x = rms_x + (ref_star.x - ukn_star.x)**2
+            rms_y = rms_y + (ref_star.y - ukn_star.y)**2
+            counter += 1
+
+
+print "RMS in X:",np.sqrt(rms_x)/counter
+print "RMS in Y:",np.sqrt(rms_y)/counter
+
+
+#Next, get the host galaxy using WCS and compute its (and its transient's) centroid
+
+#The centroid command is just centroid_com(data)

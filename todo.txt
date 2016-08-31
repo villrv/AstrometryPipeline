@@ -1,4 +1,10 @@
 1. Check that RMS reported is actually legit
+
+Done. Made an RMS calculator in the pipeline - Ashley
+
 2. Get centroid of transients in trans image 
+
+Working on it. Right now I have phot utils imported lol. - Ashley
+
 3. get centroid of host in host image + host (half light?) radius
 4. calc offset + uncertainty (astrometric + trans centroid + host centroid)
