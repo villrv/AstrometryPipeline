@@ -2,6 +2,9 @@ import alipy
 import glob
 import numpy as np
 from photutils.morphology import centroid_com
+from astropy.io import fits
+from astropy import wcs
+
 images_to_align = sorted(glob.glob("trans.fits"))
 ref_image = "ref.fits"
 
@@ -66,5 +69,14 @@ print "RMS in Y:",np.sqrt(rms_y)/counter
 
 
 #Next, get the host galaxy using WCS and compute its (and its transient's) centroid
+hdulist = fits.open(ref_image)
+w = wcs.WCS(hdulist[0].header)
+print(w.wcs.name)
+
+world_coord = np.array([[179.8042,-1.6053]], np.float_)
+
+pixcrd = w.wcs_world2pix(world_coord,1)
+
+print pixcrd
 
 #The centroid command is just centroid_com(data)
